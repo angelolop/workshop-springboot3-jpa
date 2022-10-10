@@ -3,7 +3,6 @@ package com.educandowebangelo.course.services;
 import com.educandowebangelo.course.entities.User;
 import com.educandowebangelo.course.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
