@@ -13,17 +13,17 @@ import java.util.List;
 public class ProductResource {
 
    @Autowired
-   ProductService productService;
+   private ProductService service;
 
    @GetMapping
-   private ResponseEntity<List<Product>> findAll() {
-      List<Product> products = productService.findAll();
-      return ResponseEntity.ok().body(products);
+   public ResponseEntity<List<Product>> findAll() {
+      List<Product> list = service.findAll();
+      return ResponseEntity.ok().body(list);
    }
 
    @GetMapping(value = "/{id}")
-   private ResponseEntity<Product> findById(@PathVariable Long id) {
-      Product product = productService.findById(id);
-      return ResponseEntity.ok().body(product);
+   public ResponseEntity<Product> findById(@PathVariable Long id) {
+      Product obj = service.findById(id);
+      return ResponseEntity.ok().body(obj);
    }
 }
