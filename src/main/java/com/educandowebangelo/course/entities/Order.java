@@ -2,14 +2,8 @@ package com.educandowebangelo.course.entities;
 
 import com.educandowebangelo.course.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 
 import java.io.Serial;
@@ -38,6 +32,8 @@ public class Order implements Serializable {
    @OneToMany(mappedBy = "id.order")
    private Set<OrderItem> items = new HashSet<>();
 
+   @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+   private Payment payment;
 
    public Order() {
    }
@@ -86,6 +82,22 @@ public class Order implements Serializable {
 
    public Set<OrderItem> getItems() {
       return items;
+   }
+
+   public Payment getPayment() {
+      return payment;
+   }
+
+   public Double getTotal() {
+      double sum = 0.0;
+      for(OrderItem x : items) {
+         sum += x.getSubTotal();
+      }
+      return sum;
+   }
+
+   public void setPayment(Payment payment) {
+      this.payment = payment;
    }
 
    @Override
